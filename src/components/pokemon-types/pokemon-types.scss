@@ -1,0 +1,5 @@
+.pokemon {
+    &__types-badge {
+        text-align: var(--pokemon-types-badge-text-align, center);
+    }
+}
