@@ -1,7 +1,10 @@
-import { typeColors } from "../../const/typeColors";
-import "./pokemon-types.scss";
+import { typeColors } from "../../const/typeColors.js";
 
-export default function PokemonTypes({ types = [] }) {
+interface PokemonTypesProps {
+	types?: string[];
+}
+
+export default function PokemonTypes({ types = [] }: PokemonTypesProps) {
 	return (
 		<div className="pokemon__types-badge space-x-2 mb-3">
 			{types.map((type) => (

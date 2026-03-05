@@ -1,5 +1,20 @@
-import PokemonTypes from "./pokemon-types/pokemon-types";
-export default function PokemonCard({ pokemon, onPokemonClick }) {
+import PokemonTypes from "./pokemon-types/pokemon-types.js";
+
+interface Pokemon {
+	id: number;
+	name: string;
+	types: string[];
+}
+
+interface PokemonCardProps {
+	pokemon: Pokemon;
+	onPokemonClick: (pokemon: Pokemon) => void;
+}
+
+export default function PokemonCard({
+	pokemon,
+	onPokemonClick,
+}: PokemonCardProps) {
 	const pokemonId = pokemon.id;
 	const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
 	return (

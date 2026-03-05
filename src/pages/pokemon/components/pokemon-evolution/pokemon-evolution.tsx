@@ -1,10 +1,25 @@
-export const EvolutionSection = ({ chain, currentId }) => {
+interface Pokemon {
+	id: number;
+	name: string;
+	image?: string;
+}
+
+interface EvolutionSectionProps {
+	chain?: Pokemon[];
+	currentId?: number;
+}
+
+export const EvolutionSection = ({
+	chain,
+	currentId,
+}: EvolutionSectionProps) => {
+	console.log("evolution chain", chain);
 	return (
-		<div className="flex gap-8 overflow-x-auto py-6 justify-center">
-			{chain?.map((pokemon) => (
+		<div className="flex gap-6 overflow-x-auto py-2 justify-center">
+			{chain?.map((pokemon: Pokemon) => (
 				<div
 					key={pokemon.id}
-					className={`bg-white rounded-2xl p-6 shadow-md text-center w-40 transition
+					className={`bg-white rounded-2xl p-2 shadow-md text-center  transition
             ${
 							pokemon.id === currentId
 								? "ring-4 ring-yellow-400 scale-105"

@@ -1,10 +1,10 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Header from "./components/Header";
-import Home from "./pages/Home";
-import Pokemon from "./pages/pokemon/pokemon";
-import PokemonDetail from "./pages/pokemon/pokemon-details/pokemon-details";
-import PokemonLayout from "./pages/pokemon/PokemonLayout";
-import { PokemonStoreProvider } from "./services/apis/pokemon/context/PokemonStore";
+import Header from "./components/Header.js";
+import Home from "./pages/Home.js";
+import PokemonDetail from "./pages/pokemon/pokemon-details/pokemon-details.js";
+import Pokemon from "./pages/pokemon/pokemon.js";
+import PokemonLayout from "./pages/pokemon/PokemonLayout.js";
+import { PokemonStoreProvider } from "./services/apis/pokemon/context/PokemonStore.js";
 //import Dogs from "./pages/dogs/dogs";
 //import Cats from "./pages/cats/cats";
 //import Jokes from "./pages/jokes/jokes";

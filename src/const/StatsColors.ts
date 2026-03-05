@@ -1,4 +1,4 @@
-export const statColors = {
+export const statColors: Record<string, string> = {
 	hp: "bg-red-400",
 	attack: "bg-orange-400",
 	defense: "bg-yellow-400",

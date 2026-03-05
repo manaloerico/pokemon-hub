@@ -1,6 +1,18 @@
 import { Link } from "react-router-dom";
 
-export default function CategoryCard({ title, description, image, link }) {
+interface CategoryCardProps {
+	title: string;
+	description: string;
+	image?: string;
+	link: string;
+}
+
+export default function CategoryCard({
+	title,
+	description,
+	image,
+	link,
+}: CategoryCardProps) {
 	return (
 		<Link to={link}>
 			<div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">

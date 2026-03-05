@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import { useState } from "react";
-import { typeTheme } from "./const/pokemon-theme.model";
-import { PokemonHeroProps } from "./model/pokemon-hero.model";
+import { typeTheme } from "./const/pokemon-theme.model.js";
+import type { PokemonHeroProps } from "./model/pokemon-hero.model.js";
 
 export const PokemonHero = ({
 	id,
@@ -15,7 +15,7 @@ export const PokemonHero = ({
 	onNext,
 	onPrev,
 }: PokemonHeroProps) => {
-	const mainType = types[0];
+	const mainType = types[0] || "electric";
 	const theme = typeTheme[mainType] || typeTheme["electric"];
 
 	const [isShiny, setIsShiny] = useState(false);
@@ -24,7 +24,7 @@ export const PokemonHero = ({
 
 	return (
 		<section
-			className={`relative bg-gradient-to-br ${theme.gradient} min-h-[85vh] flex items-center overflow-hidden`}
+			className={`relative bg-linear-to-br ${theme.gradient} min-h-[85vh] flex items-center overflow-hidden`}
 		>
 			{/* Background Glow */}
 			<div

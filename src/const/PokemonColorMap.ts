@@ -1,4 +1,4 @@
-export const pokemonColorMap = {
+export const pokemonColorMap: Record<string, string> = {
 	black: "bg-gradient-to-br from-gray-700 to-gray-900",
 	blue: "bg-gradient-to-br from-blue-300 to-blue-500",
 	brown: "bg-gradient-to-br from-stone-400 to-stone-600",

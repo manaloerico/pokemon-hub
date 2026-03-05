@@ -1,5 +1,19 @@
-import PokemonTypes from "./pokemon-types/pokemon-types";
-export default function PokemonEvolutionChain({ evolutionChain }) {
+import PokemonTypes from "./pokemon-types/pokemon-types.js";
+
+interface Pokemon {
+	id?: number;
+	name: string;
+	image?: string;
+	types?: string[];
+}
+
+interface EvolutionChainProps {
+	evolutionChain?: Pokemon[];
+}
+
+export default function PokemonEvolutionChain({
+	evolutionChain,
+}: EvolutionChainProps) {
 	if (!evolutionChain) return;
 
 	return (

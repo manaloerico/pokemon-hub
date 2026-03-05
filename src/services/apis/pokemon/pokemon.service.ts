@@ -3,7 +3,7 @@ import {
 	fetchPokemonDataEvolutionChainByUrl,
 	fetchPokemonDataList,
 	fetchPokemonDataSpecies,
-} from "./pokemon-data.service";
+} from "./pokemon-data.service.js";
 
 export const fetchPokemonList = async (limit = 20, offset = 0) => {
 	try {
@@ -35,14 +35,21 @@ export const fetchPokemonDetails = async (name) => {
 	}
 };
 
-export const fetchFullEvolutionChain = async (pokemonName) => {
+export const fetchPokemonSpecies = async (name) => {
 	try {
-		// 1️⃣ Get the species info
-		const { data: species } = await fetchPokemonDataSpecies(pokemonName);
-		// 2️⃣ Get the evolution chain
-		const { data: evolutionData } = await fetchPokemonDataEvolutionChainByUrl(
-			species.evolution_chain.url,
-		);
+		const { data } = await fetchPokemonDataSpecies(name);
+		return data;
+	} catch (err) {
+		console.error("Failed to fetch Pokémon species:", err);
+		return null;
+	}
+};
+
+export const fetchFullEvolutionChain = async (pokemonName, url) => {
+	try {
+		console.log("Fetching evolution chain from URL:", url);
+		const { data: evolutionData } =
+			await fetchPokemonDataEvolutionChainByUrl(url);
 
 		const chainArray = [];
 
@@ -56,7 +63,7 @@ export const fetchFullEvolutionChain = async (pokemonName) => {
 
 		traverseChain(evolutionData.chain); // start traversal with the root of the chain
 
-		return { chainArray, color: species.color.name }; // return the full chain as an array of names along with the color
+		return { chainArray }; // return the full chain as an array of names along with the color
 	} catch (err) {
 		console.error("Failed to fetch full evolution chain:", err);
 		return [];

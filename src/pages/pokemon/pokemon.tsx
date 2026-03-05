@@ -1,13 +1,20 @@
-// Pokemon.jsx
+// Pokemon.tsx
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PokemonList from "../../components/PokemonCardList";
-import { usePokemonStore } from "../../services/apis/pokemon/context/PokemonStore";
+import PokemonList from "../../components/PokemonCardList.js";
+import { usePokemonStore } from "../../services/apis/pokemon/context/PokemonStore.js";
+
+interface Pokemon {
+	id: number;
+	name: string;
+	types: string[];
+}
+
 export default function Pokemon() {
-	const [pokemonList, setPokemonList] = useState([]);
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(null);
-	const [offset, setOffset] = useState(0);
+	const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+	const [loading, setLoading] = useState<boolean>(false);
+	const [error, setError] = useState<string | null>(null);
+	const [offset, setOffset] = useState<number>(0);
 	const fetchingRef = useRef(false);
 	const LIMIT = 20;
 

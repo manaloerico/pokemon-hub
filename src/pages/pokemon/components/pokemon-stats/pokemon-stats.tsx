@@ -1,25 +1,22 @@
+import { statColors } from "../../../../const/StatsColors.js";
+
 export const PokemonStats = ({ stats }) => {
 	return (
-		<div className="space-y-5 max-w-2xl mx-auto">
-			{stats.map((stat) => {
-				const percent = (stat.base_stat / 150) * 100;
-
-				return (
-					<div key={stat.stat.name}>
-						<div className="flex justify-between text-sm font-semibold">
-							<span>{stat.stat.name.toUpperCase()}</span>
-							<span>{stat.base_stat}</span>
-						</div>
-
-						<div className="h-3 bg-gray-200 rounded-full overflow-hidden mt-2">
-							<div
-								className="h-full bg-gradient-to-r from-indigo-400 to-blue-500 transition-all duration-700"
-								style={{ width: `${percent}%` }}
-							/>
-						</div>
+		<div className="w-full mt-2 space-y-1">
+			{stats?.map(({ stat, base_stat }) => (
+				<div key={stat.name} className="flex items-center space-x-2">
+					<span className="capitalize text-left w-50 text-sm font-semibold">
+						{stat.name}
+					</span>
+					<div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+						<div
+							className={`${statColors[stat.name] || "bg-gray-400"} h-3 rounded-full transition-all duration-500`}
+							style={{ width: `${(base_stat / 150) * 100}%` }}
+						></div>
 					</div>
-				);
-			})}
+					<span className="w-8 text-sm text-right font-bold">{base_stat}%</span>
+				</div>
+			))}
 		</div>
 	);
 };

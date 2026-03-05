@@ -1,4 +1,4 @@
-import CategoryCard from "../components/CategoryCard";
+import CategoryCard from "../components/CategoryCard.js";
 
 export default function Home() {
 	const categories = [
@@ -23,7 +23,7 @@ export default function Home() {
 		{
 			title: "Jokes",
 			description: "Random jokes",
-		//	image: jokeImg,
+			//	image: jokeImg,
 			link: "/jokes",
 		},
 	];
