@@ -2,7 +2,7 @@ export type PokemonHeroProps = {
 	id: number;
 	name: string;
 	image: string;
-	types: string[];
+	types: Record<string, string>[];
 	height: number;
 	weight: number;
 	baseExperience?: number;
@@ -11,5 +11,6 @@ export type PokemonHeroProps = {
 	onNext?: () => void;
 	onPrev?: () => void;
 	theme: Record<string, string>;
-	evolutionChain: any;
+	evolutionChain?: any;
+	onBack: () => void;
 };

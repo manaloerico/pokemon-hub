@@ -12,3 +12,5 @@ export const fetchPokemonDataSpecies = (name) =>
 	axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}`);
 
 export const fetchPokemonDataEvolutionChainByUrl = (url) => axios.get(url);
+
+export const fetchPokemonDataTypeByUrl = (url) => axios.get(url);

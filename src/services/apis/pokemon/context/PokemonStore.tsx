@@ -5,6 +5,7 @@ import {
 	fetchPokemonDetails,
 	fetchPokemonList,
 	fetchPokemonSpecies,
+	fetchPokemonTypeByUrl,
 } from "../pokemon.service.js";
 
 interface Pokemon {
@@ -29,6 +30,7 @@ interface PokemonStoreContextType {
 	getPokemonListInStore: () => Promise<Pokemon[]>;
 	setPokemonListInStore: React.Dispatch<React.SetStateAction<Pokemon[]>>;
 	getPokemonSpecies: (name: string) => Promise<any>;
+	getPokemonTypeByUrl: (urls: string[]) => Promise<any>;
 }
 
 const PokemonStoreContext = createContext<PokemonStoreContextType | undefined>(
@@ -48,7 +50,6 @@ export const PokemonStoreProvider = ({ children }: { children: ReactNode }) => {
 		const data = await fetchPokemonDetails(name);
 
 		pokemonCache.current.set(name, data);
-
 		return data;
 	};
 
@@ -88,6 +89,11 @@ export const PokemonStoreProvider = ({ children }: { children: ReactNode }) => {
 		return list;
 	};
 
+	const getPokemonTypeByUrl = async (urls: string[]) => {
+		const weakness = await fetchPokemonTypeByUrl(urls);
+		return weakness;
+	};
+
 	return (
 		<PokemonStoreContext.Provider
 			value={{
@@ -97,6 +103,7 @@ export const PokemonStoreProvider = ({ children }: { children: ReactNode }) => {
 				getPokemonListInStore,
 				setPokemonListInStore,
 				getPokemonSpecies,
+				getPokemonTypeByUrl,
 			}}
 		>
 			{children}

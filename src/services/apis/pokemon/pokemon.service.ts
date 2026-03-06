@@ -3,6 +3,7 @@ import {
 	fetchPokemonDataEvolutionChainByUrl,
 	fetchPokemonDataList,
 	fetchPokemonDataSpecies,
+	fetchPokemonDataTypeByUrl,
 } from "./pokemon-data.service.js";
 
 export const fetchPokemonList = async (limit = 20, offset = 0) => {
@@ -26,9 +27,9 @@ export const fetchPokemonDetails = async (name) => {
 		const { data } = await fetchPokemonDataByName(name);
 		return {
 			...data,
-			types: data.types.map((t) => t.type.name),
+			types: data.types.map((t) => t.type),
 			image: data.sprites.other["official-artwork"].front_default,
-		}; // return the full data along with the URL
+		};
 	} catch (err) {
 		console.error("Failed to fetch Pokémon detail:", err);
 		return null;
@@ -68,4 +69,20 @@ export const fetchFullEvolutionChain = async (pokemonName, url) => {
 		console.error("Failed to fetch full evolution chain:", err);
 		return [];
 	}
+};
+
+export const fetchPokemonTypeByUrl = async (typeUrl: string[]) => {
+	if (!typeUrl.length) {
+		return;
+	}
+	const weaknesses: string[] = [];
+
+	for (const type of typeUrl) {
+		const { data } = await fetchPokemonDataTypeByUrl(type);
+		data["damage_relations"].double_damage_from.forEach((t: any) => {
+			weaknesses.push(t.name);
+		});
+	}
+
+	return [...new Set(weaknesses)];
 };

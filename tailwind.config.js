@@ -1,5 +1,6 @@
-module.exports = {
+export default {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+	darkMode: "class",
 	theme: {
 		extend: {
 			keyframes: {
@@ -12,6 +13,13 @@ module.exports = {
 			},
 			animation: {
 				blob: "blob 8s infinite",
+			},
+
+			fontFamily: {
+				display: ["Plus Jakarta Sans", "sans-serif"],
+			},
+			borderRadius: {
+				DEFAULT: "1.5rem",
 			},
 		},
 	},

@@ -1,1 +1,152 @@
+/* index.css */
 @import "tailwindcss";
+
+
+/* define dark variant */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    /* Electric */
+    --color-electric-primary: #facc15;
+    /* yellow-500 */
+    --color-electric-light: #fef08a;
+    /* yellow-400 */
+    --color-electric-dark: #ca8a04;
+    /* amber-500 */
+
+    /* Fire */
+    --color-fire-primary: #ef4444;
+    /* red-500 */
+    --color-fire-light: #fb923c;
+    /* orange-400 */
+    --color-fire-dark: #f87171;
+    /* red-400 */
+
+    /* Water */
+    --color-water-primary: #3b82f6;
+    /* blue-500 */
+    --color-water-light: #7dd3fc;
+    /* sky-400 */
+    --color-water-dark: #2563eb;
+    /* blue-600 */
+
+    /* Grass */
+    --color-grass-primary: #4ade80;
+    /* green-400 */
+    --color-grass-light: #dcfce7;
+    /* green-100 */
+    --color-grass-dark: #064e3b;
+    /* green-900 */
+
+    /* Psychic */
+    --color-psychic-primary: #8b5cf6;
+    /* purple-500 */
+    --color-psychic-light: #c4b5fd;
+    /* purple-400 */
+    --color-psychic-dark: #6b21a8;
+    /* purple-600 */
+
+    /* Ice */
+    --color-ice-primary: #7dd3fc;
+    /* cyan-300 */
+    --color-ice-light: #bfdbfe;
+    /* blue-200 */
+    --color-ice-dark: #22d3ee;
+    /* cyan-400 */
+
+    /* Normal */
+    --color-normal-primary: #6b7280;
+    /* gray-500 */
+    --color-normal-light: #d1d5db;
+    /* gray-300 */
+    --color-normal-dark: #4b5563;
+    /* gray-600 */
+
+    /* Fighting */
+    --color-fighting-primary: #b91c1c;
+    /* red-700 */
+    --color-fighting-light: #f87171;
+    /* red-400 */
+    --color-fighting-dark: #7f1d1d;
+    /* red-900 */
+
+    /* Poison */
+    --color-poison-primary: #6b21a8;
+    /* purple-700 */
+    --color-poison-light: #a78bfa;
+    /* purple-600 */
+    --color-poison-dark: #4c1d95;
+    /* purple-800 */
+
+    /* Ground */
+    --color-ground-primary: #b45309;
+    /* yellow-700 */
+    --color-ground-light: #fcd34d;
+    /* amber-400 */
+    --color-ground-dark: #78350f;
+    /* yellow-800 */
+
+    /* Flying */
+    --color-flying-primary: #38bdf8;
+    /* sky-400 */
+    --color-flying-light: #e0f2fe;
+    /* sky-200 */
+    --color-flying-dark: #0284c7;
+    /* sky-600 */
+
+    /* Bug */
+    --color-bug-primary: #84cc16;
+    /* lime-500 */
+    --color-bug-light: #bef264;
+    /* lime-400 */
+    --color-bug-dark: #65a30d;
+    /* lime-600 */
+
+    /* Rock */
+    --color-rock-primary: #78716c;
+    /* stone-500 */
+    --color-rock-light: #a8a29e;
+    /* stone-400 */
+    --color-rock-dark: #57534e;
+    /* stone-600 */
+
+    /* Ghost */
+    --color-ghost-primary: #4f46e5;
+    /* indigo-600 */
+    --color-ghost-light: #6366f1;
+    /* indigo-500 */
+    --color-ghost-dark: #3730a3;
+    /* indigo-800 */
+
+    /* Dragon */
+    --color-dragon-primary: #4f46e5;
+    /* indigo-600 */
+    --color-dragon-light: #6366f1;
+    /* indigo-500 */
+    --color-dragon-dark: #3730a3;
+    /* indigo-800 */
+
+    /* Dark */
+    --color-dark-primary: #1f2937;
+    /* gray-800 */
+    --color-dark-light: #4b5563;
+    /* gray-600 */
+    --color-dark-dark: #111827;
+    /* gray-900 */
+
+    /* Steel */
+    --color-steel-primary: #9ca3af;
+    /* gray-400 */
+    --color-steel-light: #d1d5db;
+    /* gray-300 */
+    --color-steel-dark: #6b7280;
+    /* gray-500 */
+
+    /* Fairy */
+    --color-fairy-primary: #f472b6;
+    /* pink-400 */
+    --color-fairy-light: #fbcfe8;
+    /* pink-300 */
+    --color-fairy-dark: #ec4899;
+    /* pink-500 */
+}
