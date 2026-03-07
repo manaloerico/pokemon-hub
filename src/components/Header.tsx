@@ -14,7 +14,7 @@ export default function Header() {
 			<div className="max-w-7xl mx-auto text-center px-6 py-4">
 				{/* Logo / Site Name */}
 				<Link to="/" className="text-2xl font-bold hover:text-yellow-300">
-					Funverse
+					Pokémon Hub
 				</Link>
 
 				{/* Navigation */}

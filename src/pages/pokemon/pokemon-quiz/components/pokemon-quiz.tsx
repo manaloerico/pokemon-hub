@@ -113,13 +113,14 @@ export default function PokemonQuiz({ pokemonList }) {
 			{/* options */}
 			<div className="grid grid-cols-2 gap-3 w-64">
 				{options.map((opt) => {
-					let style = "border rounded-lg p-2 transition capitalize";
+					let style =
+						"border rounded-lg p-2 transition capitalize cursor-pointer ";
 
 					if (stage === "reveal") {
 						if (opt === pokemon.name) style += " bg-green-200";
 						else if (opt === selected) style += " bg-red-200";
 					} else {
-						style += " hover:bg-gray-100";
+						style += " hover:bg-black/10";
 					}
 
 					return (
