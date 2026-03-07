@@ -1,4 +1,4 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header.tsx";
 import Home from "./pages/Home.js";
 import PokemonDetail from "./pages/pokemon/pokemon-details/pokemon-details.js";
@@ -10,8 +10,10 @@ import { PokemonStoreProvider } from "./services/apis/pokemon/context/PokemonSto
 //import Cats from "./pages/cats/cats";
 //import Jokes from "./pages/jokes/jokes";
 function App() {
+	const basename = process.env.NODE_ENV === "production" ? "/pokemon-hub" : "/";
 	return (
-		<Router>
+		<BrowserRouter basename={basename}>
+			{" "}
 			<Header />
 			<main>
 				<Routes>
@@ -43,7 +45,7 @@ function App() {
 			<footer className="bg-gray-800 text-white p-4 text-center">
 				&copy; 2026 My Website. All rights reserved.
 			</footer>
-		</Router>
+		</BrowserRouter>
 	);
 }
 
