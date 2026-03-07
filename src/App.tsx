@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header.tsx";
 import Home from "./pages/Home.js";
 import PokemonDetail from "./pages/pokemon/pokemon-details/pokemon-details.js";
@@ -12,8 +12,7 @@ import { PokemonStoreProvider } from "./services/apis/pokemon/context/PokemonSto
 function App() {
 	const basename = process.env.NODE_ENV === "production" ? "/pokemon-hub" : "/";
 	return (
-		<BrowserRouter basename={basename}>
-			{" "}
+		<HashRouter>
 			<Header />
 			<main>
 				<Routes>
@@ -45,7 +44,7 @@ function App() {
 			<footer className="bg-gray-800 text-white p-4 text-center">
 				&copy; 2026 My Website. All rights reserved.
 			</footer>
-		</BrowserRouter>
+		</HashRouter>
 	);
 }
 
