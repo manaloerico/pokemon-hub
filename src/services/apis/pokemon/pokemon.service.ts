@@ -6,16 +6,13 @@ import {
 	fetchPokemonDataTypeByUrl,
 } from "./pokemon-data.service.js";
 
+import { get } from "lodash";
+
 export const fetchPokemonList = async (limit = 20, offset = 0) => {
 	try {
 		const { data } = await fetchPokemonDataList(limit, offset);
 
-		// Fetch details for each Pokémon in parallel
-		const detailedList = await Promise.all(
-			data.results.map((p) => fetchPokemonDetails(p.name)),
-		);
-		// Filter out any failed fetches (null)
-		return detailedList.filter(Boolean).map((p) => p.name);
+		return data.results;
 	} catch (err) {
 		console.error("Failed to fetch Pokémon list:", err);
 		return [];
@@ -46,25 +43,26 @@ export const fetchPokemonSpecies = async (name) => {
 	}
 };
 
-export const fetchFullEvolutionChain = async (pokemonName, url) => {
+export const fetchFullEvolutionChain = async (
+	pokemonName,
+	url,
+): Promise<Record<string, any>> => {
 	try {
-		console.log("Fetching evolution chain from URL:", url);
 		const { data: evolutionData } =
 			await fetchPokemonDataEvolutionChainByUrl(url);
 
-		const chainArray = [];
+		const chainArray: Record<string, string>[] = [];
 
 		// 3️⃣ Recursive function to traverse chain
 		const traverseChain = (chainNode) => {
-			chainArray.push({ name: chainNode.species.name }); // add this species
+			chainArray.push({ name: get(chainNode, "species.name") }); // add this species
 			if (chainNode.evolves_to && chainNode.evolves_to.length > 0) {
 				chainNode.evolves_to.forEach((next) => traverseChain(next));
 			}
 		};
 
 		traverseChain(evolutionData.chain); // start traversal with the root of the chain
-
-		return { chainArray }; // return the full chain as an array of names along with the color
+		return chainArray; // return the full chain as an array of names along with the color
 	} catch (err) {
 		console.error("Failed to fetch full evolution chain:", err);
 		return [];
@@ -79,7 +77,13 @@ export const fetchPokemonTypeByUrl = async (typeUrl: string[]) => {
 
 	for (const type of typeUrl) {
 		const { data } = await fetchPokemonDataTypeByUrl(type);
-		data["damage_relations"].double_damage_from.forEach((t: any) => {
+		const doubleDamageFrom = get(
+			data,
+			"damage_relations.double_damage_from",
+			[],
+		);
+
+		doubleDamageFrom?.forEach((t: any) => {
 			weaknesses.push(t.name);
 		});
 	}

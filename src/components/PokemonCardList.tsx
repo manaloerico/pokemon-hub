@@ -1,25 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import { Grid } from "react-window"; // use FixedSizeGrid (typing is loose)
+import type { Pokemon } from "../services/models/pokemon.model.ts";
 import PokemonCell from "./PokemonCell.js";
-
-interface Pokemon {
-	id: number;
-	name: string;
-	types: string[];
-}
 
 interface PokemonListProps {
 	pokemonList?: Pokemon[];
-	fetchMore: () => Promise<void>;
+	fetchMore?: () => Promise<void>;
 	onPokemonClick: (pokemon: Pokemon) => void;
+	onVisiblePokemonChange?: (visiblePokemon: Pokemon[]) => void;
 }
+
+const ITEMS_PER_PAGE = 20;
 
 export default function PokemonList({
 	pokemonList = [],
 	fetchMore,
 	onPokemonClick,
+	onVisiblePokemonChange,
 }: PokemonListProps) {
 	const loadingRef = useRef(false);
+	const [displayCount, setDisplayCount] = useState(ITEMS_PER_PAGE);
 
 	// responsive columns based on window width
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -39,12 +39,20 @@ export default function PokemonList({
 	const columnCount = getColumnCount();
 	const rowHeight = 250;
 	const columnWidth = Math.floor(windowWidth / columnCount - 3);
-	const rowCount = Math.ceil(pokemonList.length / columnCount);
+
+	// Only display the first `displayCount` items
+	const displayedPokemon = pokemonList.slice(0, displayCount);
+	const rowCount = Math.ceil(displayedPokemon.length / columnCount);
+
+	// Notify parent when visible Pokemon change
+	useEffect(() => {
+		if (onVisiblePokemonChange && displayedPokemon.length > 0) {
+			onVisiblePokemonChange(displayedPokemon);
+		}
+	}, [displayedPokemon, onVisiblePokemonChange]);
 
 	return (
 		<div className="w-full h-[92.5vh] bg-sky-50">
-			{" "}
-			{/* @ts-ignore */}{" "}
 			<Grid
 				columnCount={columnCount}
 				columnWidth={columnWidth}
@@ -53,13 +61,21 @@ export default function PokemonList({
 				rowHeight={rowHeight}
 				width={windowWidth}
 				cellComponent={PokemonCell}
-				cellProps={{ pokemonList, columnCount, onPokemonClick }} // pass additional props
+				cellProps={{
+					pokemonList: displayedPokemon,
+					columnCount,
+					onPokemonClick,
+				}} // pass additional props
 				onCellsRendered={({ rowStopIndex }) => {
-					if (rowStopIndex >= rowCount - 1 && !loadingRef.current) {
+					// Load more when scrolling near the bottom
+					if (
+						rowStopIndex >= rowCount - 2 &&
+						displayCount < pokemonList.length &&
+						!loadingRef.current
+					) {
 						loadingRef.current = true;
-						fetchMore().finally(() => {
-							loadingRef.current = false;
-						});
+						setDisplayCount((prev) => prev + ITEMS_PER_PAGE);
+						loadingRef.current = false;
 					}
 				}}
 			></Grid>

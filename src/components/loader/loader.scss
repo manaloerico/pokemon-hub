@@ -1,0 +1,60 @@
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-10deg);
+    }
+
+    75% {
+        transform: rotate(10deg);
+    }
+}
+
+@keyframes pokeball-spin {
+    0% {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+
+    50% {
+        transform: rotateX(180deg) rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+
+.animate-pokeball-spin {
+    animation: pokeball-spin 1.6s linear infinite;
+}
+
+@keyframes radar-scan {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+
+@keyframes scan {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+.animate-scan {
+    animation: scan 1.5s linear infinite;
+}

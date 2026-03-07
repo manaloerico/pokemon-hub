@@ -150,3 +150,8 @@
     --color-fairy-dark: #ec4899;
     /* pink-500 */
 }
+
+:root {
+
+    --header-h: 80px;
+}

@@ -1,3 +1,4 @@
+import { get } from "lodash";
 import { typeTheme } from "../../pages/pokemon/components/pokemon-hero/index.ts";
 
 interface PokemonTypesProps {
@@ -16,15 +17,18 @@ export default function PokemonTypes({ types = [] }: PokemonTypesProps) {
 		// 		</span>
 		// 	))}
 		// </div>
-		<div className="gap-1">
-			{types.map((type) => (
-				<span
-					key={type.name}
-					className={`${typeTheme[type["name"]].badge || "bg-gray-400"} capitalize px-4 py-1 rounded-full text-white text-sm font-bold shadow-lg shadow-primary/20`}
-				>
-					{type.name}
-				</span>
-			))}
+		<div className="space-x-1">
+			{types.map((type) => {
+				const typeName = get(type, "name");
+				return (
+					<span
+						key={type.name}
+						className={`${typeTheme[typeName].badge || "bg-gray-400"} capitalize px-4 py-1 rounded-full text-white text-sm font-bold shadow-lg shadow-primary/20`}
+					>
+						{type.name}
+					</span>
+				);
+			})}
 		</div>
 	);
 }

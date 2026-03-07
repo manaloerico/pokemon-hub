@@ -1,136 +1,19 @@
 ﻿import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { usePokemonStore } from "../../../services/apis/pokemon/context/PokemonStore.tsx";
+import { LoaderComponent } from "../../../components/loader/loader.tsx";
 import { PokemonHeroDetails } from "../components/pokemon-hero-details/pokemon-hero-details.tsx";
 import { typeTheme } from "../components/pokemon-hero/index.ts";
 import PokemonHeroOverlay from "../components/pokemon-overlay/pokemon-overlay.tsx";
 import "./pokemon-details.scss";
 
-// ============ HELPER FUNCTIONS ============
-const extractEnglishGenus = (genera: any[]) => {
-	return genera
-		.filter((lang) => lang.language.name === "en")
-		.map((item) => item.genus)[0];
-};
+// hooks
+import { usePokemonDetails } from "../hooks/usePokemonDetails.ts";
+import { usePokemonNavigation } from "../hooks/usePokemonNavigation.ts";
 
+// ============ HELPER FUNCTIONS ============
 const getThemeByType = (pokemonTypes: any[]) => {
 	const mainType = pokemonTypes?.[0]?.name as string | undefined;
 	return typeTheme[mainType || "electric"]; // fallback to "electric"
-};
-
-// ============ CUSTOM HOOKS ============
-const usePokemonDetails = (pokemonName: string | undefined) => {
-	const [details, setDetails] = useState<any>(null);
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
-	const store = usePokemonStore();
-	const {
-		getPokemon,
-		getEvolutionChain,
-		getPokemonSpecies,
-		getPokemonTypeByUrl,
-	} = store || {};
-
-	useEffect(() => {
-		if (
-			!pokemonName ||
-			!getPokemon ||
-			!getEvolutionChain ||
-			!getPokemonSpecies ||
-			!getPokemonTypeByUrl
-		)
-			return;
-
-		const fetchDetails = async () => {
-			setLoading(true);
-			try {
-				// parallel fetch of pokemon and species data
-				const [pokemonData, speciesData] = await Promise.all([
-					getPokemon(pokemonName),
-					getPokemonSpecies(pokemonName),
-				]);
-
-				// fetch type details for all pokemon types
-				const typeUrls = pokemonData?.types?.map((t: any) => t.url) || [];
-				const weakness =
-					typeUrls.length > 0 ? await getPokemonTypeByUrl(typeUrls) : null;
-
-				// then fetch evolution chain
-				const { evolutionChain } = await getEvolutionChain(
-					pokemonName,
-					speciesData.evolution_chain.url,
-				);
-
-				// extract category from species data
-				const category = extractEnglishGenus(speciesData.genera);
-
-				// combine all data
-				setDetails({
-					...pokemonData,
-					speciesData,
-					evolutionChain,
-					category,
-					weakness,
-				});
-			} catch (err) {
-				setError("Failed to fetch Pokémon details.");
-				console.error(err);
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		fetchDetails();
-	}, [
-		pokemonName,
-		getPokemon,
-		getEvolutionChain,
-		getPokemonSpecies,
-		getPokemonTypeByUrl,
-	]);
-
-	return { details, loading, error };
-};
-
-const usePokemonNavigation = (pokemonName: string | undefined) => {
-	const [prev, setPrev] = useState<any>(null);
-	const [next, setNext] = useState<any>(null);
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
-	const store = usePokemonStore();
-	const { getPokemonListInStore } = store || {};
-
-	useEffect(() => {
-		if (!pokemonName || !getPokemonListInStore) return;
-
-		const fetchNavigation = async () => {
-			setLoading(true);
-			try {
-				const pokemonList = await getPokemonListInStore();
-				const currentIndex = pokemonList.findIndex(
-					(p: any) => p.name === pokemonName,
-				);
-
-				if (currentIndex === -1) {
-					setError("Pokémon not found in list.");
-					return;
-				}
-
-				setPrev(pokemonList[currentIndex - 1] || null);
-				setNext(pokemonList[currentIndex + 1] || null);
-			} catch (err) {
-				setError("Failed to fetch navigation.");
-				console.error(err);
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		fetchNavigation();
-	}, [pokemonName, getPokemonListInStore]);
-
-	return { prev, next, loading, error };
 };
 
 // ============ COMPONENT ============
@@ -140,7 +23,7 @@ export default function PokemonDetail() {
 	const navigate = useNavigate();
 
 	// get pokemon from router state (comes from list), fallback to param
-	const { pokemon: pokemonFromState } = (location.state as any) || {};
+	const { pokemon: pokemonFromState } = location.state || {};
 	const currentPokemon = pokemonFromState || pokemon;
 
 	// extract pokemon name correctly whether it's a state object or param string
@@ -152,38 +35,37 @@ export default function PokemonDetail() {
 		details: pokemonDetails,
 		loading,
 		error,
+		silhouette,
 	} = usePokemonDetails(pokemonName);
 	const { prev, next } = usePokemonNavigation(pokemonName);
-
-	// guard against loading/missing data
-	if (!pokemonName) {
-		return (
-			<section className="min-h-screen flex items-center justify-center">
-				<div className="text-lg text-gray-600">Pokémon not found</div>
-			</section>
-		);
-	}
-
-	if (loading && !pokemonDetails) {
-		return (
-			<section className="min-h-screen flex items-center justify-center">
-				<div className="text-lg text-gray-600">Loading...</div>
-			</section>
-		);
-	}
-
-	if (error && !pokemonDetails) {
-		return (
-			<section className="min-h-screen flex items-center justify-center">
-				<div className="text-lg text-red-600">{error}</div>
-			</section>
-		);
-	}
 	// get theme based on main type
 	const theme = getThemeByType(pokemonDetails?.types);
 	const navigateTo = (navigateToPokemon) => {
 		navigate(`/pokemon/${navigateToPokemon}`);
 	};
+	// guard against loading/missing data
+	if (!pokemonName) {
+		return (
+			<section className="min-h-[calc(100vh-var(--header-h))] flex items-center justify-center">
+				<div className="text-lg text-gray-600">Pokémon not found</div>
+			</section>
+		);
+	}
+
+	console.log("silhouette", silhouette);
+
+	if (loading || !pokemonDetails) {
+		return <LoaderComponent image={silhouette} />;
+	}
+
+	if (error && !pokemonDetails) {
+		return (
+			<section className="min-h-[calc(100vh-var(--header-h))] flex items-center justify-center">
+				<div className="text-lg text-red-600">{error}</div>
+			</section>
+		);
+	}
+
 	return (
 		<section
 			className={`font-display ${theme.light} dark:${theme.dark}  min-h-screen flex items-center justify-center p-4 md:p-10 relative overflow-hidden transition-colors duration-500`}

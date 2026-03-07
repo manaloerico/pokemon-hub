@@ -1,12 +1,7 @@
 // PokemonCell.tsx
 
+import type { Pokemon } from "../services/models/pokemon.model.ts";
 import PokemonCard from "./PokemonCard.js";
-
-interface Pokemon {
-	id: number;
-	name: string;
-	types: string[];
-}
 
 interface PokemonCellProps {
 	pokemonList: Pokemon[];

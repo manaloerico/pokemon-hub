@@ -1,5 +1,6 @@
-import { createContext, ReactNode, useContext, useRef, useState } from "react";
+import { createContext, useContext, useRef, useState } from "react";
 
+import type { Pokemon } from "../../../models/pokemon.model.ts";
 import {
 	fetchFullEvolutionChain,
 	fetchPokemonDetails,
@@ -8,10 +9,7 @@ import {
 	fetchPokemonTypeByUrl,
 } from "../pokemon.service.js";
 
-interface Pokemon {
-	id: number;
-	name: string;
-	types: string[];
+interface DetailedPokemon extends Pokemon {
 	[key: string]: any;
 }
 
@@ -21,14 +19,13 @@ interface EvolutionChainResult {
 }
 
 interface PokemonStoreContextType {
-	getPokemon: (name: string) => Promise<Pokemon | undefined>;
+	getPokemon: (name: string) => Promise<DetailedPokemon | undefined>;
 	getEvolutionChain: (
 		name: string,
 		url: string,
 	) => Promise<EvolutionChainResult>;
 	getPokemonList: (limit?: number, offset?: number) => Promise<Pokemon[]>;
 	getPokemonListInStore: () => Promise<Pokemon[]>;
-	setPokemonListInStore: React.Dispatch<React.SetStateAction<Pokemon[]>>;
 	getPokemonSpecies: (name: string) => Promise<any>;
 	getPokemonTypeByUrl: (urls: string[]) => Promise<any>;
 }
@@ -37,7 +34,7 @@ const PokemonStoreContext = createContext<PokemonStoreContextType | undefined>(
 	undefined,
 );
 
-export const PokemonStoreProvider = ({ children }: { children: ReactNode }) => {
+export const PokemonStoreProvider = ({ children }: { children }) => {
 	const pokemonCache = useRef(new Map());
 	const [pokemonListInStore, setPokemonListInStore] = useState([]);
 	const [speciesCache, setSpeciesCache] = useState(new Map());
@@ -63,21 +60,25 @@ export const PokemonStoreProvider = ({ children }: { children: ReactNode }) => {
 	};
 
 	const getEvolutionChain = async (name, url) => {
-		console.log("Getting evolution chain for", name, "with URL:", url);
-		const { chainArray, color } = await fetchFullEvolutionChain(name, url);
+		const chainArray = await fetchFullEvolutionChain(name, url);
 
 		const resolvedChain = await Promise.all(
 			chainArray.map((p) => getPokemon(p.name)),
 		);
-
-		// store everything in cache
-		const result = { evolutionChain: resolvedChain, color };
+		const result = { evolutionChain: resolvedChain };
 		return result;
 	};
-
-	const getPokemonList = async (limit = 20, offset = 0) => {
+	const getPokemonList = async (limit = 2000, offset = 0) => {
+		if (pokemonListInStore?.length > 0) {
+			return pokemonListInStore;
+		}
 		const data = await fetchPokemonList(limit, offset);
-		return Promise.all(data.map(getPokemon));
+		const mapToReadableCardList = data.map((d) => {
+			const id = d.url.split("/").at(-2);
+			return { ...d, id };
+		});
+		setPokemonListInStore(mapToReadableCardList);
+		return mapToReadableCardList;
 	};
 
 	const getPokemonListInStore = async () => {
@@ -101,7 +102,6 @@ export const PokemonStoreProvider = ({ children }: { children: ReactNode }) => {
 				getEvolutionChain,
 				getPokemonList,
 				getPokemonListInStore,
-				setPokemonListInStore,
 				getPokemonSpecies,
 				getPokemonTypeByUrl,
 			}}
