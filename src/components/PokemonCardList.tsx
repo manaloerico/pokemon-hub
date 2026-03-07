@@ -52,7 +52,7 @@ export default function PokemonList({
 	}, [displayedPokemon, onVisiblePokemonChange]);
 
 	return (
-		<div className="w-full h-[92.5vh] bg-sky-50">
+		<div className="w-full h-[calc(100vh-(var(--header-h)+var(--footer-h)))] bg-sky-50">
 			<Grid
 				columnCount={columnCount}
 				columnWidth={columnWidth}
@@ -69,7 +69,7 @@ export default function PokemonList({
 				onCellsRendered={({ rowStopIndex }) => {
 					// Load more when scrolling near the bottom
 					if (
-						rowStopIndex >= rowCount - 2 &&
+						rowStopIndex >= rowCount - 1 &&
 						displayCount < pokemonList.length &&
 						!loadingRef.current
 					) {

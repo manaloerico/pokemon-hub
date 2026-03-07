@@ -1,0 +1,13 @@
+@keyframes scan {
+    0% {
+        transform: translateY(-120%);
+    }
+
+    100% {
+        transform: translateY(220%);
+    }
+}
+
+.animate-scan {
+    animation: scan 1.4s linear infinite;
+}

@@ -36,7 +36,7 @@ const PokemonStoreContext = createContext<PokemonStoreContextType | undefined>(
 
 export const PokemonStoreProvider = ({ children }: { children }) => {
 	const pokemonCache = useRef(new Map());
-	const [pokemonListInStore, setPokemonListInStore] = useState([]);
+	const [pokemonListInStore, setPokemonListInStore] = useState<Pokemon[]>([]);
 	const [speciesCache, setSpeciesCache] = useState(new Map());
 
 	const getPokemon = async (name) => {
@@ -68,7 +68,10 @@ export const PokemonStoreProvider = ({ children }: { children }) => {
 		const result = { evolutionChain: resolvedChain };
 		return result;
 	};
-	const getPokemonList = async (limit = 2000, offset = 0) => {
+	const getPokemonList = async (
+		limit = 2000,
+		offset = 0,
+	): Promise<Pokemon[]> => {
 		if (pokemonListInStore?.length > 0) {
 			return pokemonListInStore;
 		}
@@ -110,5 +113,12 @@ export const PokemonStoreProvider = ({ children }: { children }) => {
 		</PokemonStoreContext.Provider>
 	);
 };
-
-export const usePokemonStore = () => useContext(PokemonStoreContext);
+export const usePokemonStore = () => {
+	const context = useContext(PokemonStoreContext);
+	if (!context) {
+		throw new Error(
+			"usePokemonStore must be used within a PokemonStoreProvider",
+		);
+	}
+	return context;
+};

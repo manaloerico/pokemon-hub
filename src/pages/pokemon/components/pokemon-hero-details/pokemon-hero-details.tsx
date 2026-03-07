@@ -78,7 +78,7 @@ export const PokemonHeroDetails = ({
 			<div className="grid lg:grid-cols-2 gap-10 items-start">
 				<div className="flex flex-col items-center lg:items-start">
 					<div className="mb-4 text-center lg:text-left">
-						<div className="flex items-baseline gap-3 mb-1">
+						<div className="flex items-baseline gap-3 mb-1 flex-wrap">
 							<h1
 								className={`text-5xl font-extrabold text-${theme.base}-950 dark:text-white capitalize`}
 							>
@@ -87,7 +87,7 @@ export const PokemonHeroDetails = ({
 							<span
 								className={`text-2xl font-bold text-${theme.base}-700/50 dark:text-${theme.base}-400/50`}
 							>
-								#001
+								{`#${String(id).padStart(4, "0")}`}
 							</span>
 						</div>
 						<span
@@ -121,7 +121,7 @@ export const PokemonHeroDetails = ({
 						>
 							About
 						</button>
-						<button
+						{/* <button
 							className={`cursor-pointer text-${theme.base}-900/50 dark:text-white/50 font-medium hover:text-${theme.base}-700 transition-colors pb-2 whitespace-nowrap`}
 						>
 							Base Stats
@@ -135,7 +135,7 @@ export const PokemonHeroDetails = ({
 							className={`cursor-pointer text-${theme.base}-900/50 dark:text-white/50 font-medium hover:text-${theme.base}-700 transition-colors pb-2 whitespace-nowrap`}
 						>
 							Moves
-						</button>
+						</button> */}
 					</div>
 					<div className="grid grid-cols-2 md:grid-cols-3 gap-6">
 						<InfoItem

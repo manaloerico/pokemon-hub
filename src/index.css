@@ -153,5 +153,37 @@
 
 :root {
 
-    --header-h: 80px;
+    --header-h: 64px;
+    --footer-h: 56px;
+
+
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    >div {
+        display: contents;
+    }
+}
+
+main {
+    flex: 1;
+    background-color: #f3f3f3;
+}
+
+footer {
+    background-color: #1f2937;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
 }

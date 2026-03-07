@@ -99,7 +99,7 @@ export default function PokemonDetail() {
 						</div>
 					</div>
 				)}
-				<div className="glass-panel w-full max-w-5xl rounded-[3rem] shadow-2xl relative z-10 p-6 md:p-10 flex flex-col gap-8 transition-all duration-300">
+				<div className="glass-panel w-full max-w-5xl md:rounded-[3rem] rounded-2xl shadow-2xl relative z-10 p-[10px] md:p-10 flex flex-col gap-8 transition-all duration-300">
 					<PokemonHeroDetails
 						id={pokemonDetails?.id}
 						name={pokemonDetails?.name}

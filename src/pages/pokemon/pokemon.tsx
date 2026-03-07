@@ -14,7 +14,7 @@ export default function Pokemon() {
 	const fetchingRef = useRef(false);
 	const LIMIT = 2000;
 
-	const { getPokemonList, setPokemonListInStore } = usePokemonStore();
+	const { getPokemonList } = usePokemonStore();
 
 	const getPokemon = useCallback(async () => {
 		if (fetchingRef.current) return;
@@ -23,9 +23,10 @@ export default function Pokemon() {
 
 		try {
 			const data = await getPokemonList(LIMIT, offset);
-			setPokemonList((prev) => [...prev, ...data]);
-			setPokemonListInStore((prev) => [...prev, ...data]);
-			setOffset((prev) => prev + LIMIT);
+			setPokemonList(data);
+			//setPokemonList((prev) => [...prev, ...data]);
+			// setPokemonListInStore((prev) => [...prev, ...data]);
+			// setOffset((prev) => prev + LIMIT);
 		} catch (_err) {
 			console.log(_err);
 			setError("Failed to fetch Pokémon.");
@@ -33,7 +34,7 @@ export default function Pokemon() {
 			fetchingRef.current = false;
 			setLoading(false);
 		}
-	}, [offset, getPokemonList, setPokemonListInStore]);
+	}, [offset, getPokemonList]);
 
 	// Fetch details only for currently displayed Pokemon
 	const fetchDetailsForVisiblePokemon = useCallback(

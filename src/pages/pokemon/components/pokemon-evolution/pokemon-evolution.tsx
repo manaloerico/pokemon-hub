@@ -24,7 +24,7 @@ export const EvolutionSection = ({
 			>
 				Evolution Chain
 			</h3>
-			<div className="flex items-center justify-between gap-2">
+			<div className="flex flex-wrap items-center justify-between gap-2">
 				{chain?.map((pokemon: Pokemon, index) => {
 					const borderClass =
 						pokemon.id === currentId
