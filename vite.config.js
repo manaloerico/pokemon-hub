@@ -13,7 +13,7 @@ export default defineConfig({
 			name: "pokemonHub",
 			filename: "remoteEntry.js",
 			exposes: {
-				"./App": "./src/bootstrap.js", // use bootstrap.js
+				"./App": "./src/bootstrap.jsx", // use bootstrap.js
 			},
 			shared: ["react", "react-dom"],
 		}),

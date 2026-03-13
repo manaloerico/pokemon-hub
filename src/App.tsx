@@ -10,7 +10,6 @@ import PokemonLayout from "./pages/pokemon/PokemonLayout.js";
 //import Cats from "./pages/cats/cats";
 //import Jokes from "./pages/jokes/jokes";
 function App() {
-	const basename = process.env.NODE_ENV === "production" ? "/pokemon-hub" : "/";
 	return (
 		<HashRouter>
 			<Header />
