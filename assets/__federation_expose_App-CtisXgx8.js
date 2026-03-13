@@ -1,0 +1,1 @@
+import{R as t,j as e,A as n}from"./App-5PZLzHtO.js";__webpack_public_path__=window.location.origin+"/pokemon-hub/";const _=o=>{t.createRoot(o).render(e.jsx(n,{}))};if(!window.__IS_REMOTE_APP__){const o=document.getElementById("root");o&&_(o)}export{_ as mount};
