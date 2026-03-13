@@ -16,6 +16,7 @@ export default defineConfig({
 				"./App": "./src/bootstrap.jsx", // use bootstrap.js
 			},
 			shared: ["react", "react-dom"],
+			base: "/pokemon-hub/",
 		}),
 	],
 	build: {
