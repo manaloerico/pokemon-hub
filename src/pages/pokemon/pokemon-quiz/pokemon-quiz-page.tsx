@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { usePokemonStore } from "../../../services/apis/pokemon/context/PokemonStore.tsx";
 
-import { usePokemonStore } from "../../../app/providers/pokemon.provider.tsx";
 import type { Pokemon } from "../../../services/models/pokemon.model.ts";
 import PokemonQuiz from "./components/pokemon-quiz.tsx";
 
