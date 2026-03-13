@@ -40,7 +40,6 @@ export const usePokemonDetails = (pokemonName: string | undefined) => {
 					getPokemon(pokemonName),
 					getPokemonSpecies(pokemonName),
 				]);
-				console.log("pokemonData", pokemonData);
 				setSilhouette(pokemonData?.image);
 
 				// fetch type details for all pokemon types
@@ -53,7 +52,6 @@ export const usePokemonDetails = (pokemonName: string | undefined) => {
 					pokemonName,
 					get(speciesData, "evolution_chain.url"),
 				);
-				console.log("evolutionChain", evolutionChain);
 
 				// extract category from species data
 				const category = extractEnglishGenus(get(speciesData, "genera", []));

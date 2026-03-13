@@ -72,7 +72,6 @@ export const PokemonProvider = ({ children }: { children }) => {
 
 		const filteredResolvedChain = resolvedChain.filter((value) => value);
 		const result = { evolutionChain: filteredResolvedChain };
-		console.log("evo provider", filteredResolvedChain, chainArray);
 		return result;
 	};
 	const getPokemonList = async (

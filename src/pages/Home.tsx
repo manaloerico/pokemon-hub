@@ -42,21 +42,17 @@ export default function Home() {
 	// Fetch random featured Pokémon
 	useEffect(() => {
 		const fetchRandomPokemon = async () => {
-			console.log(pokemonListData);
 			if (!pokemonListData || !pokemonListData.length) return;
 
 			// Pick a random Pokémon from your existing list
 			const randomIndex =
 				Math.floor(Math.random() * pokemonListData.length) + 1;
 			const pokemon = pokemonListData[randomIndex];
-			console.log(pokemonListData, randomIndex, pokemon);
 			if (!pokemon) {
 				return;
 			}
 			const image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
 
-			// If your pokemon object doesn't have image, fetch official artwork
-			console.log(image);
 			setFeaturedPokemon({
 				...pokemon,
 				image,

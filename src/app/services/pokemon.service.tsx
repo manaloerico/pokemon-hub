@@ -63,14 +63,12 @@ export const fetchFullEvolutionChain = async (
 
 			chainArray.push({ name: get(chainNode, "species.name") }); // add this species
 			const evolvesTo = get(chainNode, "evolves_to");
-			console.log("evolvesTo", evolvesTo);
 			if (evolvesTo && evolvesTo.length > 0) {
 				evolvesTo.forEach((next) => traverseChain(next));
 			}
 		};
 
 		traverseChain(evolutionData.chain);
-		console.log("chainArray SERVICES", chainArray);
 		return chainArray;
 	} catch (err) {
 		console.error("Failed to fetch full evolution chain:", err);

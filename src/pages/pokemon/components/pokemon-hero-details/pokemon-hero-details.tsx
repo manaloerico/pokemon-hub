@@ -26,7 +26,6 @@ export const PokemonHeroDetails = ({
 	const displayImage = isShiny && shinyImage ? shinyImage : image;
 	const navigate = useNavigate();
 	const audioRef = useRef<HTMLAudioElement | null>(null);
-	console.log(types);
 
 	// Guard against null pokemonDetails
 	if (!pokemonDetails) {
