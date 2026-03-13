@@ -12,7 +12,6 @@ export default defineConfig({
 		federation({
 			name: "pokedex",
 			filename: "remoteEntry.js",
-			outFile: "remoteEntry.js",
 			exposes: {
 				"./PokedexApp": "./src/mount.tsx",
 			},
@@ -23,13 +22,5 @@ export default defineConfig({
 		target: "esnext",
 		minify: false,
 		cssCodeSplit: false,
-		outDir: "dist",
-		rollupOptions: {
-			output: {
-				entryFileNames: "[name].js", // default: assets/[name]-hash.js
-				chunkFileNames: "assets/[name]-[hash].js",
-				assetFileNames: "assets/[name]-[hash].[ext]",
-			},
-		},
 	},
 });
