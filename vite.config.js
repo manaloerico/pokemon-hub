@@ -1,11 +1,11 @@
+// vite.config.js
+import federation from "@originjs/vite-plugin-federation";
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
-import federation from "@originjs/vite-plugin-federation";
-import tailwindcss from "@tailwindcss/vite";
-
 export default defineConfig({
-	base: "/pokemon-hub/", // needed for GitHub Pages standalone
+	base: "/pokemon-hub/",
 	plugins: [
 		react(),
 		tailwindcss(),
@@ -13,10 +13,10 @@ export default defineConfig({
 			name: "pokemonHub",
 			filename: "remoteEntry.js",
 			exposes: {
-				"./App": "./src/bootstrap.jsx", // use bootstrap.js
+				"./App": "./src/bootstrap.jsx",
 			},
 			shared: ["react", "react-dom"],
-			base: "/pokemon-hub/",
+			base: "", // <-- empty string makes federation use relative paths
 		}),
 	],
 	build: {
@@ -26,10 +26,13 @@ export default defineConfig({
 				chunkFileNames: "assets/[name]-[hash].js",
 				entryFileNames: "assets/[name]-[hash].js",
 				assetFileNames: "assets/[name]-[hash].[ext]",
+				// ensure chunks are loaded relative to current path
+				// so GitHub Pages /pokemon-hub/ works
+				dir: "dist",
+				manualChunks(id) {
+					if (id.includes("node_modules")) return "vendor";
+				},
 			},
 		},
-	},
-	optimizeDeps: {
-		exclude: ["__federation_fn_import"],
 	},
 });
