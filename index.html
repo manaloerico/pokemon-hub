@@ -11,6 +11,10 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+  <script>
+    // This flag prevents double mounting if host mounts
+    window.__IS_REMOTE_APP__ = false;
+  </script>
 </body>
 
 </html>
