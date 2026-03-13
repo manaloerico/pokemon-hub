@@ -16,7 +16,7 @@ export default defineConfig({
 				"./App": "./src/bootstrap.jsx",
 			},
 			shared: ["react", "react-dom"],
-			base: "", // <-- empty string makes federation use relative paths
+			base: "./", // <-- empty string makes federation use relative paths
 		}),
 	],
 	build: {
