@@ -1,0 +1,1 @@
+import{R as t,j as e}from"./vendor-eF8-excf.js";import{A as r}from"./App-COjsPwfW.js";const n=o=>{t.createRoot(o).render(e.jsx(r,{}))};if(!window.__IS_REMOTE_APP__){const o=document.getElementById("root");o&&n(o)}export{n as mount};
