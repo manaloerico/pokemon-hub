@@ -1,0 +1,1 @@
+import{R as t,j as e,A as n}from"./App-5PZLzHtO.js";typeof window.__federation_fn_import__>"u"&&(window.__federation_fn_import__=o=>import(window.location.pathname.replace(/\/$/,"")+"/"+o));const _=o=>{t.createRoot(o).render(e.jsx(n,{}))};if(!window.__IS_REMOTE_APP__){const o=document.getElementById("root");o&&_(o)}export{_ as mount};
