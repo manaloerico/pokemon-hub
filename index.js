@@ -1,5 +1,5 @@
-import { importShared } from './__federation_fn_import-DhUBeXoq.js';
-import { j as jsxRuntimeExports, P as PokemonRoutes, R as ReactDOM } from './pokemon.routes-B9hkF2K-.js';
+import { importShared } from './assets/__federation_fn_import-DhUBeXoq.js';
+import { j as jsxRuntimeExports, P as PokemonRoutes, R as ReactDOM } from './assets/pokemon.routes-B9hkF2K-.js';
 
 true              &&(function polyfill() {
 	const relList = document.createElement("link").relList;
