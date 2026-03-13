@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { usePokemonStore } from "../../../services/apis/pokemon/context/PokemonStore.tsx";
+import { usePokemonStore } from "../../../app/providers/pokemon.provider.tsx";
 
 export const usePokemonNavigation = (pokemonName: string | undefined) => {
 	const [prev, setPrev] = useState<any>(null);

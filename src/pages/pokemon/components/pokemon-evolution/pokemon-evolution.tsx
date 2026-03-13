@@ -27,7 +27,7 @@ export const EvolutionSection = ({
 			<div className="flex flex-wrap items-center justify-between gap-2">
 				{chain?.map((pokemon: Pokemon, index) => {
 					const borderClass =
-						pokemon.id === currentId
+						pokemon?.id === currentId
 							? `border-3 border-${theme.base}-500`
 							: "border border-white/40";
 					const imageContainerClass = `w-16 h-16 rounded-2xl bg-white/30 dark:bg-white/10 flex items-center justify-center p-2 ${borderClass}`;

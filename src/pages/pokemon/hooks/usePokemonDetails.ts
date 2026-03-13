@@ -1,5 +1,6 @@
+import { get } from "lodash";
 import { useEffect, useState } from "react";
-import { usePokemonStore } from "../../../services/apis/pokemon/context/PokemonStore.tsx";
+import { usePokemonStore } from "../../../app/providers/pokemon.provider.tsx";
 
 // helper function used only inside this hook
 const extractEnglishGenus = (genera: any[]) => {
@@ -50,11 +51,12 @@ export const usePokemonDetails = (pokemonName: string | undefined) => {
 				// then fetch evolution chain
 				const { evolutionChain } = await getEvolutionChain(
 					pokemonName,
-					speciesData.evolution_chain.url,
+					get(speciesData, "evolution_chain.url"),
 				);
+				console.log("evolutionChain", evolutionChain);
 
 				// extract category from species data
-				const category = extractEnglishGenus(speciesData.genera);
+				const category = extractEnglishGenus(get(speciesData, "genera", []));
 
 				// combine all data
 				setDetails({
