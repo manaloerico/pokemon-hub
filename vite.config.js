@@ -1,8 +1,9 @@
 import federation from "@originjs/vite-plugin-federation";
-import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
+import tailwindcss from "@tailwindcss/vite";
+// https://vite.dev/config/
 export default defineConfig({
 	base: "/pokemon-hub/",
 	plugins: [
@@ -11,23 +12,21 @@ export default defineConfig({
 		federation({
 			name: "pokedex",
 			filename: "remoteEntry.js",
+			outFile: "remoteEntry.js",
 			exposes: {
 				"./PokedexApp": "./src/mount.tsx",
 			},
 			shared: ["react", "react-dom", "react-router-dom"],
-			extraOptions: {
-				runtimeChunkPrefix: "federation-runtime-", // avoids GH Pages blocking __ files
-			},
 		}),
 	],
 	build: {
 		target: "esnext",
-		outDir: "dist",
 		minify: false,
 		cssCodeSplit: false,
+		outDir: "dist",
 		rollupOptions: {
 			output: {
-				entryFileNames: "assets/[name]-[hash].js",
+				entryFileNames: "[name].js", // default: assets/[name]-hash.js
 				chunkFileNames: "assets/[name]-[hash].js",
 				assetFileNames: "assets/[name]-[hash].[ext]",
 			},
