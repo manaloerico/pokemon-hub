@@ -1,9 +1,8 @@
 import federation from "@originjs/vite-plugin-federation";
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
-import tailwindcss from "@tailwindcss/vite";
-// https://vite.dev/config/
 export default defineConfig({
 	base: "/pokemon-hub/",
 	plugins: [
@@ -17,7 +16,7 @@ export default defineConfig({
 			},
 			shared: ["react", "react-dom", "react-router-dom"],
 			extraOptions: {
-				runtimeChunkPrefix: "federation-runtime-", // instead of __federation_fn_import
+				runtimeChunkPrefix: "federation-runtime-", // avoids GH Pages blocking __ files
 			},
 		}),
 	],
@@ -28,6 +27,7 @@ export default defineConfig({
 		cssCodeSplit: false,
 		rollupOptions: {
 			output: {
+				entryFileNames: "assets/[name]-[hash].js",
 				chunkFileNames: "assets/[name]-[hash].js",
 				assetFileNames: "assets/[name]-[hash].[ext]",
 			},
