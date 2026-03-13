@@ -1,0 +1,8 @@
+{
+	"rewrites": [
+		{
+			"source": "/remoteEntry.js",
+			"destination": "/assets/remoteEntry.js"
+		}
+	]
+}
