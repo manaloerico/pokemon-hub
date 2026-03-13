@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
 
+__webpack_public_path__ = window.location.origin + "/pokemon-hub/";
 const mount = (el) => {
 	const root = ReactDOM.createRoot(el);
 	root.render(<App />);
