@@ -52,8 +52,6 @@ export default function PokemonDetail() {
 		);
 	}
 
-	console.log("silhouette", silhouette);
-
 	if (loading || !pokemonDetails) {
 		return <LoaderComponent image={silhouette} />;
 	}

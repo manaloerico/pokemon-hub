@@ -1,7 +1,7 @@
 import { DatabaseZap } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { usePokemonStore } from "../services/apis/pokemon/context/PokemonStore.tsx";
+import { usePokemonStore } from "../app/providers/pokemon.provider.tsx";
 import type { Pokemon } from "../services/models/pokemon.model.ts";
 
 export const useGetPokemonList = () => {

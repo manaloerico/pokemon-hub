@@ -1,10 +1,10 @@
 // Pokemon.tsx
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import type { Pokemon as PokemonModel } from "../../app/models/pokemon.model.tsx";
+import { usePokemonStore } from "../../app/providers/pokemon.provider.js";
+import { fetchPokemonDetails } from "../../app/services/pokemon.service.tsx";
 import PokemonList from "../../components/PokemonCardList.js";
-import { usePokemonStore } from "../../services/apis/pokemon/context/PokemonStore.js";
-import { fetchPokemonDetails } from "../../services/apis/pokemon/pokemon.service.js";
-import type { Pokemon as PokemonModel } from "../../services/models/pokemon.model.ts";
 
 export default function Pokemon() {
 	const [pokemonList, setPokemonList] = useState<PokemonModel[]>([]);
@@ -24,11 +24,7 @@ export default function Pokemon() {
 		try {
 			const data = await getPokemonList(LIMIT, offset);
 			setPokemonList(data);
-			//setPokemonList((prev) => [...prev, ...data]);
-			// setPokemonListInStore((prev) => [...prev, ...data]);
-			// setOffset((prev) => prev + LIMIT);
 		} catch (_err) {
-			console.log(_err);
 			setError("Failed to fetch Pokémon.");
 		} finally {
 			fetchingRef.current = false;
@@ -36,14 +32,12 @@ export default function Pokemon() {
 		}
 	}, [offset, getPokemonList]);
 
-	// Fetch details only for currently displayed Pokemon
 	const fetchDetailsForVisiblePokemon = useCallback(
 		async (visiblePokemon: PokemonModel[]) => {
 			const pokemonToFetch = visiblePokemon.filter((p) => !p.types);
 
 			if (pokemonToFetch.length === 0) return;
 
-			// Batch fetch details for visible Pokemon
 			const detailPromises = pokemonToFetch.map(async (pokemon) => {
 				try {
 					const details = await fetchPokemonDetails(pokemon.name);
@@ -56,7 +50,6 @@ export default function Pokemon() {
 
 			const results = await Promise.all(detailPromises);
 
-			// Update state with all fetched details at once
 			setPokemonList((prevList) =>
 				prevList.map((pokemon) => {
 					const result = results.find((r) => r.name === pokemon.name);
@@ -78,7 +71,7 @@ export default function Pokemon() {
 			state: {
 				pokemon,
 			},
-		}); // pass pokemon data in state
+		});
 	};
 
 	return (
