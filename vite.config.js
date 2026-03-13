@@ -29,4 +29,7 @@ export default defineConfig({
 			},
 		},
 	},
+	optimizeDeps: {
+		exclude: ["__federation_fn_import"],
+	},
 });
