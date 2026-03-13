@@ -13,6 +13,7 @@
 		"deploy": "gh-pages -d build"
 	},
 	"dependencies": {
+		"@originjs/vite-plugin-federation": "^1.4.1",
 		"@tailwindcss/vite": "^4.2.0",
 		"axios": "^1.13.5",
 		"lodash": "^4.17.23",
