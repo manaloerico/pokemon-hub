@@ -16,6 +16,9 @@ export default defineConfig({
 				"./PokedexApp": "./src/mount.tsx",
 			},
 			shared: ["react", "react-dom", "react-router-dom"],
+			extraOptions: {
+				runtimeChunkPrefix: "federation-runtime-", // instead of __federation_fn_import
+			},
 		}),
 	],
 	build: {
