@@ -21,15 +21,11 @@ export default defineConfig({
 	],
 	build: {
 		target: "esnext",
-		cssCodeSplit: false,
 		rollupOptions: {
 			output: {
-				assetFileNames: (assetInfo) => {
-					if (assetInfo.name?.endsWith(".css")) {
-						return "assets/remote.css";
-					}
-					return "assets/[name].[ext]";
-				},
+				chunkFileNames: "assets/[name]-[hash].js",
+				entryFileNames: "assets/[name]-[hash].js",
+				assetFileNames: "assets/[name]-[hash].[ext]",
 			},
 		},
 	},
