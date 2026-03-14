@@ -3,9 +3,11 @@ import "./index.css";
 import RoutesPage from "./pages/routes.tsx";
 function RemoteRoutes() {
 	return (
-		<HashRouter>
-			<RoutesPage />
-		</HashRouter>
+		<div className="pokemon-hub">
+			<HashRouter>
+				<RoutesPage />
+			</HashRouter>
+		</div>
 	);
 }
 
