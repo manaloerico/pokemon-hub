@@ -13,7 +13,7 @@ export default defineConfig({
 			name: "pokemonHub",
 			filename: "remoteEntry.js",
 			exposes: {
-				"./App": "./src/bootstrap.jsx", // bootstrap exposes mount function
+				"./Routes": "./src/remote.routes.tsx", // bootstrap exposes mount function
 			},
 			shared: ["react", "react-dom"],
 			base: "./", // <-- ensures dynamic federation chunks load relative to URL

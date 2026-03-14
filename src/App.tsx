@@ -1,18 +1,13 @@
-import { HashRouter, Route, Routes } from "react-router-dom";
-import { PokemonProvider } from "./app/providers/pokemon.provider.tsx";
+import { HashRouter } from "react-router-dom";
 import Header from "./components/Header.tsx";
 import "./index.css";
-import Home from "./pages/Home.js";
-import PokemonDetail from "./pages/pokemon/pokemon-details/pokemon-details.js";
-import PokemonQuizPage from "./pages/pokemon/pokemon-quiz/pokemon-quiz-page.tsx";
-import Pokemon from "./pages/pokemon/pokemon.js";
-import PokemonLayout from "./pages/pokemon/PokemonLayout.js";
+import RoutesPage from "./pages/routes.tsx";
 function App() {
 	return (
 		<HashRouter>
 			<Header />
-			<main>
-				<Routes>
+			<RoutesPage />
+			{/* <Routes>
 					<Route
 						path="/"
 						element={
@@ -35,8 +30,7 @@ function App() {
 
 						<Route path="pokemon-quiz" element={<PokemonQuizPage />} />
 					</Route>
-				</Routes>
-			</main>
+				</Routes> */}
 			<footer className="bg-gray-800 text-white p-4 text-center">
 				&copy; 2026 My Website. All rights reserved.
 			</footer>
