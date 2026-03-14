@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Grid } from "react-window"; // use FixedSizeGrid (typing is loose)
 import type { Pokemon } from "../services/models/pokemon.model.ts";
 import PokemonCell from "./PokemonCell.js";
@@ -24,19 +24,22 @@ export default function PokemonList({
 	// responsive columns based on window width
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const [windowWidth, setWindowWidth] = useState(0);
+	useLayoutEffect(() => {
+		const el = wrapperRef.current;
+		if (!el) return;
 
-	useEffect(() => {
-		const updateWidth = () => {
-			if (wrapperRef.current) {
-				setWindowWidth(wrapperRef.current.clientWidth);
-			}
-		};
+		// Initial measure
+		setWindowWidth(el.clientWidth);
 
-		updateWidth();
+		// Listen to resizing using ResizeObserver
+		const observer = new ResizeObserver(() => {
+			if (el) setWindowWidth(el.clientWidth);
+		});
 
-		window.addEventListener("resize", updateWidth);
-		return () => window.removeEventListener("resize", updateWidth);
-	}, [wrapperRef.current]);
+		observer.observe(el);
+
+		return () => observer.disconnect();
+	}, []);
 
 	const getColumnCount = (windowWidth) => {
 		if (windowWidth >= 1024) return 5;
