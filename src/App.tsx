@@ -6,7 +6,7 @@ function App() {
 	return (
 		<HashRouter>
 			<Header />
-			<main className="pokemon-hub">
+			<main>
 				<RoutesPage />
 			</main>
 			{/* <Routes>
@@ -33,7 +33,7 @@ function App() {
 						<Route path="pokemon-quiz" element={<PokemonQuizPage />} />
 					</Route>
 				</Routes> */}
-			<footer className="bg-gray-800 text-white p-4 text-center pokemon-hub">
+			<footer className="bg-gray-800 text-white p-4 text-center ">
 				&copy; 2026 My Website. All rights reserved.
 			</footer>
 		</HashRouter>

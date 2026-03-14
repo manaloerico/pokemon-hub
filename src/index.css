@@ -1,7 +1,6 @@
 /* index.css */
 @import "tailwindcss";
 
-
 /* define dark variant */
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -166,7 +165,7 @@ body {
     padding: 0;
 }
 
-body.pokemon-hub {
+body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -176,12 +175,12 @@ body.pokemon-hub {
     }
 }
 
-main.pokemon-hub {
+main {
     flex: 1;
     background-color: #f3f3f3;
 }
 
-footer.pokemon-hub {
+footer {
     background-color: #1f2937;
     color: #fff;
     text-align: center;
