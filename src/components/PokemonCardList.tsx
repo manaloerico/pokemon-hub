@@ -22,24 +22,20 @@ export default function PokemonList({
 	const [displayCount, setDisplayCount] = useState(ITEMS_PER_PAGE);
 
 	// responsive columns based on window width
-	const wrapperContainer = window.document.getElementById("grid-wrapper");
+	const wrapperRef = useRef<HTMLDivElement>(null);
 	const [windowWidth, setWindowWidth] = useState(0);
 
 	useEffect(() => {
-
-		const wrapperContainer = document.getElementById("grid-wrapper");
-
 		const updateWidth = () => {
-			if (wrapperContainer) {
-				setWindowWidth(wrapperContainer.clientWidth);
+			if (wrapperRef.current) {
+				setWindowWidth(wrapperRef.current.clientWidth);
 			}
 		};
 
-		updateWidth()
+		updateWidth();
 
-		const handleResize = () => setWindowWidth(wrapperContainer?.clientWidth);
-		window.addEventListener("resize", handleResize);
-		return () => window.removeEventListener("resize", handleResize);
+		window.addEventListener("resize", updateWidth);
+		return () => window.removeEventListener("resize", updateWidth);
 	}, []);
 
 	const getColumnCount = (windowWidth) => {
@@ -49,7 +45,7 @@ export default function PokemonList({
 	};
 
 	console.log(
-		wrapperContainer?.clientWidth,
+		wrapperRef.current?.clientWidth,
 		getColumnCount(windowWidth),
 		windowWidth,
 	);
@@ -72,6 +68,7 @@ export default function PokemonList({
 		<div
 			id="grid-wrapper"
 			className="w-full h-[calc(100vh-(var(--header-h)+var(--footer-h)))] bg-sky-50"
+			ref={wrapperRef}
 		>
 			<Grid
 				columnCount={columnCount}
