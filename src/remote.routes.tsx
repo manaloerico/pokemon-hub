@@ -3,7 +3,7 @@ import ShadowWrapper from "./components/shadow-wrapper/shadow-wrapper.tsx";
 import RoutesPage from "./pages/routes.tsx";
 function RemoteRoutes() {
 	return (
-		<ShadowWrapper styles="{styles}">
+		<ShadowWrapper>
 			<HashRouter>
 				<RoutesPage />
 			</HashRouter>

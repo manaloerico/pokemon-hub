@@ -15,6 +15,21 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, styles }) => {
 		// Attach shadow root
 		const shadowRoot = hostRef.current.attachShadow({ mode: "open" });
 
+		// Copy all existing stylesheets into shadow
+		Array.from(document.styleSheets).forEach((sheet) => {
+			try {
+				const rules = sheet.cssRules;
+				if (!rules) return;
+				const style = document.createElement("style");
+				Array.from(rules).forEach((rule) => {
+					style.appendChild(document.createTextNode(rule.cssText));
+				});
+				shadowRoot.appendChild(style);
+			} catch (e) {
+				// Some stylesheets (like from other domains) might throw CORS errors
+			}
+		});
+
 		// Create a div to render React content
 		const mountPoint = document.createElement("div");
 		shadowRoot.appendChild(mountPoint);
