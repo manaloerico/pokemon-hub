@@ -1,8 +1,8 @@
+import get from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Grid } from "react-window"; // use FixedSizeGrid (typing is loose)
 import type { Pokemon } from "../services/models/pokemon.model.ts";
 import PokemonCell from "./PokemonCell.js";
-
 interface PokemonListProps {
 	pokemonList?: Pokemon[];
 	fetchMore?: () => Promise<void>;
@@ -25,13 +25,12 @@ export default function PokemonList({
 	const [windowWidth, setWindowWidth] = useState(0);
 	// Callback ref ensures we measure **after element exists**
 	const wrapperRef = useCallback((el: HTMLDivElement | null) => {
-		console.log("elem", el);
 		if (!el) return;
 
 		// ResizeObserver to update width dynamically
 		const observer = new ResizeObserver(() => {
-			console.log(el);
-			setWindowWidth(el.clientWidth);
+			const element = get(el, "parentElement");
+			setWindowWidth(element.clientWidth);
 		});
 		observer.observe(el);
 
