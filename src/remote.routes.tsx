@@ -1,11 +1,13 @@
 import { HashRouter } from "react-router-dom";
-import "./index.css";
+import ShadowWrapper from "./components/shadow-wrapper/shadow-wrapper.tsx";
 import RoutesPage from "./pages/routes.tsx";
 function RemoteRoutes() {
 	return (
-		<HashRouter>
-			<RoutesPage />
-		</HashRouter>
+		<ShadowWrapper styles="{styles}">
+			<HashRouter>
+				<RoutesPage />
+			</HashRouter>
+		</ShadowWrapper>
 	);
 }
 
