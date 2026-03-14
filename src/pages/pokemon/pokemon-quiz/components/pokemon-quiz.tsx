@@ -84,14 +84,15 @@ export default function PokemonQuiz({ pokemonList }) {
 	if (!pokemon) return null;
 
 	return (
-		<div className="flex flex-col items-center gap-6  mt-6">
-			<h2 className="text-xl font-bold">Score: {score}</h2>
+		<div className="@container">
+			<div className="flex flex-col items-center gap-6  mt-6">
+				<h2 className="text-xl font-bold">Score: {score}</h2>
 
-			{/* Pokemon image */}
-			<div className="relative">
-				<img
-					src={pokemon.image}
-					className={`w-44 h-44 object-contain transition-all duration-700
+				{/* Pokemon image */}
+				<div className="relative mx-auto">
+					<img
+						src={pokemon.image}
+						className={`w-44 h-44 object-contain transition-all duration-700
           ${
 						stage === "loading"
 							? "blur-xl brightness-75"
@@ -99,51 +100,52 @@ export default function PokemonQuiz({ pokemonList }) {
 								? "brightness-0 contrast-200"
 								: "brightness-100 blur-0"
 					}`}
-				/>
+					/>
 
-				{stage === "silhouette" && (
-					<div className="absolute inset-0 overflow-hidden">
-						<div className="w-full h-12 bg-gradient-to-b from-transparent via-white/40 to-transparent animate-scan" />
-					</div>
+					{stage === "silhouette" && (
+						<div className="absolute inset-0 overflow-hidden">
+							<div className="w-full h-12 bg-gradient-to-b from-transparent via-white/40 to-transparent animate-scan" />
+						</div>
+					)}
+				</div>
+
+				<p className="font-bold text-lg">Who's that Pokémon?</p>
+
+				{/* options */}
+				<div className="grid grid-cols-2 gap-3 w-65 mx-auto">
+					{options.map((opt) => {
+						let style =
+							"border rounded-lg p-2 transition capitalize cursor-pointer ";
+
+						if (stage === "reveal") {
+							if (opt === pokemon.name) style += " bg-green-200";
+							else if (opt === selected) style += " bg-red-200";
+						} else {
+							style += " hover:bg-black/10";
+						}
+
+						return (
+							<button
+								key={opt}
+								onClick={() => handleSelect(opt)}
+								disabled={stage !== "silhouette"}
+								className={style}
+							>
+								{opt}
+							</button>
+						);
+					})}
+				</div>
+
+				{stage === "reveal" && (
+					<button
+						onClick={loadQuestion}
+						className="px-4 py-2 bg-yellow-400 rounded font-semibold"
+					>
+						Next Pokémon
+					</button>
 				)}
 			</div>
-
-			<p className="font-bold text-lg">Who's that Pokémon?</p>
-
-			{/* options */}
-			<div className="grid grid-cols-2 gap-3 w-64">
-				{options.map((opt) => {
-					let style =
-						"border rounded-lg p-2 transition capitalize cursor-pointer ";
-
-					if (stage === "reveal") {
-						if (opt === pokemon.name) style += " bg-green-200";
-						else if (opt === selected) style += " bg-red-200";
-					} else {
-						style += " hover:bg-black/10";
-					}
-
-					return (
-						<button
-							key={opt}
-							onClick={() => handleSelect(opt)}
-							disabled={stage !== "silhouette"}
-							className={style}
-						>
-							{opt}
-						</button>
-					);
-				})}
-			</div>
-
-			{stage === "reveal" && (
-				<button
-					onClick={loadQuestion}
-					className="px-4 py-2 bg-yellow-400 rounded font-semibold"
-				>
-					Next Pokémon
-				</button>
-			)}
 		</div>
 	);
 }
