@@ -14,17 +14,16 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, styles }) => {
 
 		// Attach shadow root
 		const shadowRoot = hostRef.current.attachShadow({ mode: "open" });
-
-		// Create a div to render React content
-		const mountPoint = document.createElement("div");
-		shadowRoot.appendChild(mountPoint);
-
 		// Inject styles if provided
 		if (styles) {
 			const styleTag = document.createElement("style");
 			styleTag.textContent = styles;
 			shadowRoot.appendChild(styleTag);
 		}
+
+		// Create a div to render React content
+		const mountPoint = document.createElement("div");
+		shadowRoot.appendChild(mountPoint);
 
 		// Render React content inside shadow
 		const root = createRoot(mountPoint);
