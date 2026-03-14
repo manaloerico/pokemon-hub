@@ -8,32 +8,30 @@ import PokemonLayout from "./pokemon/PokemonLayout.tsx";
 
 function RoutesPage() {
 	return (
-		<main>
-			<Routes>
-				<Route
-					path="/"
-					element={
-						<PokemonProvider>
-							<Home />
-						</PokemonProvider>
-					}
-				/>
+		<Routes>
+			<Route
+				path="/"
+				element={
+					<PokemonProvider>
+						<Home />
+					</PokemonProvider>
+				}
+			/>
 
-				<Route
-					path="/pokemon/*"
-					element={
-						<PokemonProvider>
-							<PokemonLayout />
-						</PokemonProvider>
-					}
-				>
-					<Route index element={<Pokemon />} />
-					<Route path=":pokemon" element={<PokemonDetail />} />
+			<Route
+				path="/pokemon/*"
+				element={
+					<PokemonProvider>
+						<PokemonLayout />
+					</PokemonProvider>
+				}
+			>
+				<Route index element={<Pokemon />} />
+				<Route path=":pokemon" element={<PokemonDetail />} />
 
-					<Route path="pokemon-quiz" element={<PokemonQuizPage />} />
-				</Route>
-			</Routes>
-		</main>
+				<Route path="pokemon-quiz" element={<PokemonQuizPage />} />
+			</Route>
+		</Routes>
 	);
 }
 
