@@ -1,11 +1,13 @@
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import "./index.css";
 import RoutesPage from "./pages/routes.tsx";
 
-export default function RemoteRoutes() {
+function RemoteRoutes() {
 	return (
-		<BrowserRouter>
+		<HashRouter>
 			<RoutesPage />
-		</BrowserRouter>
+		</HashRouter>
 	);
 }
+
+export default RemoteRoutes;
