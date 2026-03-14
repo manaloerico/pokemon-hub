@@ -22,21 +22,38 @@ export default function PokemonList({
 	const [displayCount, setDisplayCount] = useState(ITEMS_PER_PAGE);
 
 	// responsive columns based on window width
-	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	const wrapperContainer = window.document.getElementById("grid-wrapper");
+	const [windowWidth, setWindowWidth] = useState(0);
 
 	useEffect(() => {
-		const handleResize = () => setWindowWidth(window.innerWidth);
+
+		const wrapperContainer = document.getElementById("grid-wrapper");
+
+		const updateWidth = () => {
+			if (wrapperContainer) {
+				setWindowWidth(wrapperContainer.clientWidth);
+			}
+		};
+
+		updateWidth()
+
+		const handleResize = () => setWindowWidth(wrapperContainer?.clientWidth);
 		window.addEventListener("resize", handleResize);
 		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
-	const getColumnCount = () => {
+	const getColumnCount = (windowWidth) => {
 		if (windowWidth >= 1024) return 5;
 		if (windowWidth >= 640) return 4;
 		return 2;
 	};
 
-	const columnCount = getColumnCount();
+	console.log(
+		wrapperContainer?.clientWidth,
+		getColumnCount(windowWidth),
+		windowWidth,
+	);
+	const columnCount = getColumnCount(windowWidth);
 	const rowHeight = 250;
 	const columnWidth = Math.floor(windowWidth / columnCount - 3);
 
@@ -52,11 +69,14 @@ export default function PokemonList({
 	}, [displayedPokemon, onVisiblePokemonChange]);
 
 	return (
-		<div className="w-full h-[calc(100vh-(var(--header-h)+var(--footer-h)))] bg-sky-50">
+		<div
+			id="grid-wrapper"
+			className="w-full h-[calc(100vh-(var(--header-h)+var(--footer-h)))] bg-sky-50"
+		>
 			<Grid
 				columnCount={columnCount}
 				columnWidth={columnWidth}
-				height={1200} // fixed height for simplicity
+				height={400} // fixed height for simplicity
 				rowCount={rowCount}
 				rowHeight={rowHeight}
 				width={windowWidth}
