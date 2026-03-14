@@ -51,7 +51,7 @@ export const LoaderComponent = ({ children, image }: LoaderProps) => (
 	// </p>
 
 	<div className="min-h-[calc(100vh-var(--header-h))]  flex flex-col items-center justify-center gap-4 h-60">
-		<div className="relative w-80 h-80">
+		<div className="relative w-80 h-80 mx-auto">
 			<img
 				src={image}
 				className="w-full h-full object-contain brightness-0 animate-pulse"
