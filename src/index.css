@@ -156,34 +156,34 @@
     --header-h: 64px;
     --footer-h: 56px;
 
+}
 
 
-    html,
-    body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body.pokemon-hub {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    >div {
+        display: contents;
     }
+}
 
-    body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
+main.pokemon-hub {
+    flex: 1;
+    background-color: #f3f3f3;
+}
 
-        >div {
-            display: contents;
-        }
-    }
-
-    main {
-        flex: 1;
-        background-color: #f3f3f3;
-    }
-
-    footer {
-        background-color: #1f2937;
-        color: #fff;
-        text-align: center;
-        padding: 1rem;
-    }
+footer.pokemon-hub {
+    background-color: #1f2937;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
 }
