@@ -1,6 +1,6 @@
 import { get } from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Grid } from "react-window"; // use FixedSizeGrid (typing is loose)
+import { Grid } from "react-window";
 import type { Pokemon } from "../services/models/pokemon.model.ts";
 import PokemonCell from "./PokemonCell.js";
 interface PokemonListProps {
@@ -11,7 +11,7 @@ interface PokemonListProps {
 }
 
 const ITEMS_PER_PAGE = 20;
-
+const LOAD_MORE_THRESHOLD = 2;
 export default function PokemonList({
 	pokemonList = [],
 	fetchMore,
@@ -21,16 +21,15 @@ export default function PokemonList({
 	const loadingRef = useRef(false);
 	const [displayCount, setDisplayCount] = useState(ITEMS_PER_PAGE);
 
-	// responsive columns based on window width
 	const [windowWidth, setWindowWidth] = useState(0);
-	// Callback ref ensures we measure **after element exists**
+	const [containerHeight, setContainerHeight] = useState(500);
 	const wrapperRef = useCallback((el: HTMLDivElement | null) => {
 		if (!el) return;
 
-		// ResizeObserver to update width dynamically
 		const observer = new ResizeObserver(() => {
 			const element = get(el, "parentElement");
 			setWindowWidth(element.clientWidth);
+			setContainerHeight(element.clientHeight);
 		});
 		observer.observe(el);
 
@@ -42,7 +41,6 @@ export default function PokemonList({
 		return 2;
 	};
 
-	console.log(getColumnCount(windowWidth), windowWidth);
 	const columnCount = getColumnCount(windowWidth);
 	const rowHeight = 250;
 	const columnWidth = Math.floor(windowWidth / columnCount - 3);
@@ -66,7 +64,7 @@ export default function PokemonList({
 			<Grid
 				columnCount={columnCount}
 				columnWidth={columnWidth}
-				height={400} // fixed height for simplicity
+				height={containerHeight}
 				rowCount={rowCount}
 				rowHeight={rowHeight}
 				width={windowWidth}
@@ -77,9 +75,8 @@ export default function PokemonList({
 					onPokemonClick,
 				}} // pass additional props
 				onCellsRendered={({ rowStopIndex }) => {
-					// Load more when scrolling near the bottom
 					if (
-						rowStopIndex >= rowCount - 1 &&
+						rowStopIndex >= rowCount - 1 - LOAD_MORE_THRESHOLD &&
 						displayCount < pokemonList.length &&
 						!loadingRef.current
 					) {
