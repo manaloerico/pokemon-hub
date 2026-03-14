@@ -1,4 +1,4 @@
-import get from "lodash";
+import { get } from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Grid } from "react-window"; // use FixedSizeGrid (typing is loose)
 import type { Pokemon } from "../services/models/pokemon.model.ts";
@@ -29,7 +29,7 @@ export default function PokemonList({
 
 		// ResizeObserver to update width dynamically
 		const observer = new ResizeObserver(() => {
-			const element = get(el, "parentElement.clientWidth");
+			const element = get(el, "parentElement");
 			setWindowWidth(element.clientWidth);
 		});
 		observer.observe(el);
