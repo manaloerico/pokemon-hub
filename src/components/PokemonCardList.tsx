@@ -36,7 +36,7 @@ export default function PokemonList({
 
 		window.addEventListener("resize", updateWidth);
 		return () => window.removeEventListener("resize", updateWidth);
-	}, []);
+	}, [wrapperRef.current]);
 
 	const getColumnCount = (windowWidth) => {
 		if (windowWidth >= 1024) return 5;
@@ -66,7 +66,6 @@ export default function PokemonList({
 
 	return (
 		<div
-			id="grid-wrapper"
 			className="w-full h-[calc(100vh-(var(--header-h)+var(--footer-h)))] bg-sky-50"
 			ref={wrapperRef}
 		>
