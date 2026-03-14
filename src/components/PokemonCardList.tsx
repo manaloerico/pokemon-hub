@@ -29,7 +29,7 @@ export default function PokemonList({
 
 		// ResizeObserver to update width dynamically
 		const observer = new ResizeObserver(() => {
-			const element = get(el, "parentElement");
+			const element = get(el, "parentElement.clientWidth");
 			setWindowWidth(element.clientWidth);
 		});
 		observer.observe(el);
