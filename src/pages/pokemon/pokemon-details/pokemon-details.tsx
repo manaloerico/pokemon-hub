@@ -71,7 +71,7 @@ export default function PokemonDetail() {
 			<PokemonHeroOverlay>
 				{prev && (
 					<div
-						className={`hidden lg:flex fixed left-8 top-1/2 -translate-y-1/2 flex-col items-center gap-2 group cursor-pointer text-${theme.base}-800 dark:text-${theme.base}-100 opacity-60 hover:opacity-100 transition-all`}
+						className={`hidden lg:flex absolute left-8 top-1/2 -translate-y-1/2 flex-col items-center gap-2 group cursor-pointer text-${theme.base}-800 dark:text-${theme.base}-100 opacity-60 hover:opacity-100 transition-all`}
 						onClick={() => navigateTo(prev.name)}
 					>
 						<span className="material-symbols-outlined text-4xl">
@@ -85,7 +85,7 @@ export default function PokemonDetail() {
 				)}
 				{next && (
 					<div
-						className={`hidden lg:flex fixed right-8 top-1/2 -translate-y-1/2 flex-col items-center gap-2 group cursor-pointer text-${theme.base}-800 dark:text-${theme.base}-100 opacity-60 hover:opacity-100 transition-all`}
+						className={`hidden lg:flex absolute right-8 top-1/2 -translate-y-1/2 flex-col items-center gap-2 group cursor-pointer text-${theme.base}-800 dark:text-${theme.base}-100 opacity-60 hover:opacity-100 transition-all`}
 						onClick={() => navigateTo(next.name)}
 					>
 						<span className="material-symbols-outlined text-4xl">
