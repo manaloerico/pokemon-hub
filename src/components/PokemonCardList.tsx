@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Grid } from "react-window"; // use FixedSizeGrid (typing is loose)
 import type { Pokemon } from "../services/models/pokemon.model.ts";
 import PokemonCell from "./PokemonCell.js";
@@ -22,36 +22,30 @@ export default function PokemonList({
 	const [displayCount, setDisplayCount] = useState(ITEMS_PER_PAGE);
 
 	// responsive columns based on window width
-	const wrapperRef = useRef<HTMLDivElement>(null);
 	const [windowWidth, setWindowWidth] = useState(0);
-	useLayoutEffect(() => {
-		const el = wrapperRef.current;
+	// Callback ref ensures we measure **after element exists**
+	const wrapperRef = useCallback((el: HTMLDivElement | null) => {
+		console.log("elem", el);
 		if (!el) return;
 
-		// Initial measure
+		// Set initial width
 		setWindowWidth(el.clientWidth);
 
-		// Listen to resizing using ResizeObserver
+		// ResizeObserver to update width dynamically
 		const observer = new ResizeObserver(() => {
-			if (el) setWindowWidth(el.clientWidth);
+			setWindowWidth(el.clientWidth);
 		});
-
 		observer.observe(el);
 
 		return () => observer.disconnect();
 	}, []);
-
 	const getColumnCount = (windowWidth) => {
 		if (windowWidth >= 1024) return 5;
 		if (windowWidth >= 640) return 4;
 		return 2;
 	};
 
-	console.log(
-		wrapperRef.current?.clientWidth,
-		getColumnCount(windowWidth),
-		windowWidth,
-	);
+	console.log(getColumnCount(windowWidth), windowWidth);
 	const columnCount = getColumnCount(windowWidth);
 	const rowHeight = 250;
 	const columnWidth = Math.floor(windowWidth / columnCount - 3);
