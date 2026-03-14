@@ -16,6 +16,7 @@ export default defineConfig({
 				"./Routes": "./src/bootstrap.jsx", // bootstrap exposes mount function
 			},
 			shared: ["react", "react-dom"],
+			format: "esm",
 			base: "./", // <-- ensures dynamic federation chunks load relative to URL
 		}),
 	],
