@@ -76,7 +76,7 @@ export default function PokemonList({
 			<Grid
 				columnCount={columnCount}
 				columnWidth={columnWidth}
-				height={size.height}
+				height={size.height + 100}
 				rowCount={rowCount}
 				rowHeight={rowHeight}
 				width={size.width}
