@@ -1,10 +1,10 @@
 // Pokemon.tsx
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { Pokemon as PokemonModel } from "../../app/models/pokemon.model.tsx";
-import { usePokemonStore } from "../../app/providers/pokemon.provider.js";
-import { fetchPokemonDetails } from "../../app/services/pokemon.service.tsx";
-import PokemonList from "../../components/PokemonCardList.js";
+import type { Pokemon as PokemonModel } from "../../../app/models/pokemon.model.tsx";
+import { usePokemonStore } from "../../../app/providers/pokemon.provider.tsx";
+import { fetchPokemonDetails } from "../../../app/services/pokemon.service.tsx";
+import PokemonList from "./components/PokemonCardList.tsx";
 
 export default function Pokemon() {
 	const [pokemonList, setPokemonList] = useState<PokemonModel[]>([]);
